@@ -7,11 +7,7 @@ description: Lorem Etiam Nullam
 draft: false
 #image: instasnap.jpeg
 keywords: ""
-slug: aliquam
+slug: ipsum
 title: About Me 
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
-
-
-<p>Hello !! yoooo hello by e</p>
