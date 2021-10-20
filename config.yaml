@@ -97,9 +97,9 @@ params:
         subtitle: Joe Biden Approval Margin
         title: US Elections 
         url: blogs/ipsum
-      - image: pic05.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Consequat
+      - image: CAPM.jpeg
+        subtitle: Dashboard to calculate returns of 5 stocks 
+        title: CAPM Dashboard
         url: blogs/consequat
       - image: pic06.jpg
         subtitle: Feugiat Amet Tempus
