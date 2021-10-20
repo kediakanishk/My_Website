@@ -100,11 +100,11 @@ params:
       - image: pic05.jpg
         subtitle: Ipsum Dolor Sit Amet
         title: Consequat
-        url: blogs/ipsum
+        url: blogs/consequat
       - image: pic06.jpg
         subtitle: Feugiat Amet Tempus
         title: Etiam
-        url: blogs/ipsum
+        url: blogs/etiam
   #two:
    # buttonText: Get Started
    # enable: yes
@@ -117,7 +117,3 @@ params:
     #title: Massa libero
     #url: blogs
 
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
