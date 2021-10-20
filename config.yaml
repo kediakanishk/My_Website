@@ -9,7 +9,7 @@ params:
     buttonText: Get Started
     subtitle: |-
       Welcome to my website.  
-      I will share a little bit about myself and my work.
+      I will share a little bit about myself and my work at LBS.
     title: Hi, my name is Kanishk Kedia. 
   blog: {}
   contact:
@@ -97,13 +97,13 @@ params:
         subtitle: Joe Biden Approval Margin
         title: US Elections 
         url: blogs/ipsum
-      - image: CAPM.jpeg
-        subtitle: Dashboard to calculate returns of 5 stocks 
-        title: CAPM Dashboard
+      - image: brexit.jpeg
+        subtitle: Vote Analysis  
+        title: Brexit Result Analysis
         url: blogs/consequat
-      - image: pic06.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Etiam
+      - image: taj.jpeg
+        subtitle: comparing life expectancy since 1952
+        title: Life Expectancy India 
         url: blogs/etiam
   #two:
    # buttonText: Get Started
