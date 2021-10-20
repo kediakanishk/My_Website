@@ -1,6 +1,6 @@
-baseURL: http://example.org/
+baseURL: http://kanishkwebsite.netlify.app
 languageCode: en-us
-title: Portfolio website for Kostis Christodoulou
+title: Portfolio website for Kanishk Kedia
 theme: forty
 googleAnalytics: ''
 disqusShortname: ''
