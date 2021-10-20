@@ -14,10 +14,10 @@ params:
   blog: {}
   contact:
     address:
-      - city: London, NW8 8TA
+      - city: London, NW1 4SA
         country: United Kingdom 
-        street: Mallory Street
-        title: 12 Fulmer House 
+        street: Regents Park, Park Road 
+        title: London Business School 
     buttonClear: Clear
     buttonSend: Send message
     email:
