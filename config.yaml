@@ -1,4 +1,4 @@
-baseURL: http://kanishkwebsite.netlify.app/
+baseURL: https://kanishkwebsite.netlify.app/
 languageCode: en-us
 title: Portfolio website for Kanishk Kedia
 theme: forty
@@ -87,7 +87,7 @@ params:
         url: blogs/aliquam
       - image: pic02.jpg
         subtitle: Feugiat Amet Tempus
-        title: Tempus
+        title: My CV
         url: blogs/tempus
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
