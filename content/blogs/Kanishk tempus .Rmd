@@ -11,4 +11,7 @@ slug: tempus
 title: My CV
 ---
 
+```{r, echo=FALSE, fig.width=3,fig.height=3}
+knitr::include_graphics("/img/Kanishk CV_page-0001.jpg",error=FALSE)
+```
 

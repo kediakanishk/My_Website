@@ -5,10 +5,12 @@ categories:
 date: "2017-10-31T22:26:09-05:00"
 description: Lorem Etiam Nullam
 draft: false
-#image: instasnap.jpeg
+image: kanishk2.png
 keywords: ""
 slug: aliquam
 title: About Me 
 ---
 
-Hello !! yoooo hello by e
+Hey! I’m Kanishk. I am a Bachelor of Commerce graduate from St.Xavier’s College, Kolkata with a Marketing specialisation. Now you’ll be wondering what is a Marketing graduate doing in a finance heavy program, well here is when things get interesting; for the first two years of my undergraduate degree, I was hell-bent on pursuing a career in marketing. But after attending a stock market workshop in the ultimate year of my under-graduation, I discovered the world of stocks and cryptocurrency, and the rest is history. Since then, I have taken a conscious effort to learn and understand the finance industry. I have passed the CFA Level 1 exam and spent an awful lot of time throughout 2020 investing in the Indian stock market.
+
+**Coming from a family business of real estate, I feel an MFA degree can aid me in understanding the nuances of a real estate business and one day, I plan on expanding my family’s business to different locations around the globe.**
