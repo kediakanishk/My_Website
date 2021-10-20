@@ -10,6 +10,7 @@ keywords: ""
 slug: consequat
 title: Vote Analysis of Brexit
 ---
+
 BREXIT RESULT ANALYSIS
 
 This project is done to analyse the brexit vote.
@@ -24,38 +25,40 @@ library(janitor)
 library(htmltools)
 library(stringi)
 ```
+
 ```{r}
 brexit_results <- read_csv(here::here("data","brexit_results.csv"))
 glimpse(brexit_results)
 ```
 
 ```{r}
-brexit_histogram <- ggplot(brexit_results, aes(x = leave_share)) +
+ggplot(brexit_results, aes(x = leave_share)) +
   geom_histogram(binwidth = 2.5)
 
 brexit_histogram <- brexit_histogram +
 labs(title = "Brexit Leave Share",
      x = "leave share") +
 NULL
+```
 
-brexit_density_plot <- ggplot(brexit_results, aes(x = leave_share)) +
+```{r}
+ggplot(brexit_results, aes(x = leave_share)) +
   geom_density()
 brexit_density_plot<- brexit_density_plot +
   labs(title = "Brexit Density Plot",
        x = "Leave Share") +
   NULL
+```
 
-
-brexit_cum_dis <- ggplot(brexit_results, aes(x = leave_share)) +
+```{r}
+ggplot(brexit_results, aes(x = leave_share)) +
   stat_ecdf(geom = "step", pad = FALSE) +
   scale_y_continuous(labels = scales::percent)
 brexit_cum_dis <- brexit_cum_dis +
   labs(title = "Brexit Cummulative Distribution",
        x = "leave Share")+
   NULL
-  
 ```
-
 
 
 ```{r}
