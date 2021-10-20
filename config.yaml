@@ -85,17 +85,17 @@ params:
         subtitle: Kanishk Kedia MFA 2022,London Business School
         title: About 
         url: blogs/aliquam
-      - image: pic02.jpg
-        subtitle: Feugiat Amet Tempus
+      - image: office.jpeg
+        #subtitle: 
         title: My CV
         url: blogs/tempus
-      - image: pic03.jpg
-        subtitle: Lorem Etiam Nullam
-        title: Magna
+      - image: beer.jpeg
+        subtitle: Top 25 countries 
+        title: Beer Wine And Spirits
         url: blogs/magna
-      - image: pic04.jpg
-        subtitle: Nisl Sed Aliquam
-        title: Ipsum
+      - image: uselections.jpeg
+        subtitle: Joe Biden Approval Margin
+        title: US Elections 
         url: blogs/ipsum
       - image: pic05.jpg
         subtitle: Ipsum Dolor Sit Amet
