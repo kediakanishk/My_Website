@@ -1,0 +1,355 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:26:09-05:00"
+description: Lorem Etiam Nullam
+draft: false
+#image: wine.jpeg
+keywords: ""
+slug: consequat
+title: Portfolio Growth over time and CAPM
+runtime: shiny
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+<script src="Kanishk consequat _files/header-attrs/header-attrs.js"></script>
+<script src="shared/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script>(function() {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bsDatepicker = datepicker;
+      })();
+     </script>
+<link href="shared/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<script src="Kanishk consequat _files/htmlwidgets/htmlwidgets.js"></script>
+<script src="Kanishk consequat _files/plotly-binding/plotly.js"></script>
+<script src="Kanishk consequat _files/jquery/jquery.min.js"></script>
+<script src="Kanishk consequat _files/proj4js/proj4.js"></script>
+<link href="Kanishk consequat _files/highcharts/css/motion.css" rel="stylesheet" />
+<script src="Kanishk consequat _files/highcharts/highcharts.js"></script>
+<script src="Kanishk consequat _files/highcharts/highcharts-3d.js"></script>
+<script src="Kanishk consequat _files/highcharts/highcharts-more.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/stock.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/map.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/annotations.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/data.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/drilldown.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/item-series.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/offline-exporting.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/overlapping-datalabels.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/exporting.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/export-data.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/funnel.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/heatmap.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/treemap.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/sankey.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/dependency-wheel.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/organization.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/solid-gauge.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/streamgraph.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/sunburst.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/vector.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/wordcloud.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/xrange.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/tilemap.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/venn.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/gantt.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/timeline.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/parallel-coordinates.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/bullet.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/coloraxis.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/dumbbell.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/lollipop.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/series-label.js"></script>
+<script src="Kanishk consequat _files/highcharts/plugins/motion.js"></script>
+<script src="Kanishk consequat _files/highcharts/custom/reset.js"></script>
+<script src="Kanishk consequat _files/highcharts/modules/boost.js"></script>
+<script src="Kanishk consequat _files/highchart-binding/highchart.js"></script>
+
+
+<pre class="r"><code>library(tidyverse)
+library(shiny)
+library(highcharter)
+library(tidyquant)
+library(timetk)
+library(scales)
+library(broom)
+library(highcharter)
+library(plotly)</code></pre>
+<div id="section-sidebar" class="section level1 sidebar" data-width="230">
+<h1>Sidebar</h1>
+<pre class="r"><code>fluidRow(
+  column(6, # column width
+         
+  # variable stock 1, show &quot;Stock 1&quot;, and choose by default &quot;AAPL&quot;
+  textInput(&quot;stock1&quot;, &quot;Stock 1&quot;, &quot;AAPL&quot;)),
+  
+  
+  column(5,
+  
+  # weight of stock 1, show &quot;Weight %&quot;, 25% by default, anc check weight is 0-100
+  numericInput(&quot;w1&quot;, &quot;Weight %&quot;, 25, min = 0, max = 100))
+)  </code></pre>
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="stock1-label" for="stock1">Stock 1</label>
+<input id="stock1" type="text" class="form-control" value="AAPL"/>
+</div>
+</div>
+<div class="col-sm-5">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="w1-label" for="w1">Weight %</label>
+<input id="w1" type="number" class="form-control" value="25" min="0" max="100"/>
+</div>
+</div>
+</div>
+<pre class="r"><code>fluidRow(
+  column(6,
+  textInput(&quot;stock2&quot;, &quot;Stock 2&quot;, &quot;BA&quot;)),
+  column(5,
+  numericInput(&quot;w2&quot;, &quot;Weight %&quot;, 25, min = 0, max = 100))
+)</code></pre>
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="stock2-label" for="stock2">Stock 2</label>
+<input id="stock2" type="text" class="form-control" value="BA"/>
+</div>
+</div>
+<div class="col-sm-5">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="w2-label" for="w2">Weight %</label>
+<input id="w2" type="number" class="form-control" value="25" min="0" max="100"/>
+</div>
+</div>
+</div>
+<pre class="r"><code>fluidRow(
+  column(6,
+  textInput(&quot;stock3&quot;, &quot;Stock 3&quot;, &quot;DIS&quot;)),
+  column(5,
+  numericInput(&quot;w3&quot;, &quot;Weight %&quot;, 20, min = 0, max = 100))
+)</code></pre>
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="stock3-label" for="stock3">Stock 3</label>
+<input id="stock3" type="text" class="form-control" value="DIS"/>
+</div>
+</div>
+<div class="col-sm-5">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="w3-label" for="w3">Weight %</label>
+<input id="w3" type="number" class="form-control" value="20" min="0" max="100"/>
+</div>
+</div>
+</div>
+<pre class="r"><code>fluidRow(
+  column(6,
+  textInput(&quot;stock4&quot;, &quot;Stock 4&quot;, &quot;GS&quot;)),
+  column(5,
+  numericInput(&quot;w4&quot;, &quot;Weight %&quot;, 20, min = 0, max = 100))
+)</code></pre>
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="stock4-label" for="stock4">Stock 4</label>
+<input id="stock4" type="text" class="form-control" value="GS"/>
+</div>
+</div>
+<div class="col-sm-5">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="w4-label" for="w4">Weight %</label>
+<input id="w4" type="number" class="form-control" value="20" min="0" max="100"/>
+</div>
+</div>
+</div>
+<pre class="r"><code>fluidRow(
+  column(6,
+  textInput(&quot;stock5&quot;, &quot;Stock 5&quot;, &quot;MRK&quot;)),
+  column(5,
+  numericInput(&quot;w5&quot;, &quot;Weight %&quot;, 10, min = 0, max = 100))
+)</code></pre>
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="stock5-label" for="stock5">Stock 5</label>
+<input id="stock5" type="text" class="form-control" value="MRK"/>
+</div>
+</div>
+<div class="col-sm-5">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="w5-label" for="w5">Weight %</label>
+<input id="w5" type="number" class="form-control" value="10" min="0" max="100"/>
+</div>
+</div>
+</div>
+<pre class="r"><code>fluidRow(
+  column(7,
+  dateInput(&quot;date&quot;, &quot;Starting Date&quot;, &quot;2007-01-01&quot;, format = &quot;yyyy-mm-dd&quot;))
+)</code></pre>
+<div class="row">
+<div class="col-sm-7">
+<div id="date" class="shiny-date-input form-group shiny-input-container">
+<label class="control-label" id="date-label" for="date">Starting Date</label>
+<input type="text" class="form-control" aria-labelledby="date-label" title="Date format: yyyy-mm-dd" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-initial-date="2007-01-01" data-date-autoclose="true" data-date-dates-disabled="null" data-date-days-of-week-disabled="null"/>
+</div>
+</div>
+</div>
+<pre class="r"><code>actionButton(&quot;go&quot;, &quot;Submit&quot;)</code></pre>
+<p><button id="go" type="button" class="btn btn-default action-button">Submit</button></p>
+<pre class="r"><code>myportfolio_data &lt;- eventReactive(input$go, {
+
+# Get symbols from user  
+symbols &lt;- c(input$stock1, input$stock2, input$stock3, input$stock4, input$stock5)
+
+# Get weights from user and make sure they add up to 100
+weights &lt;- c(input$w1/100, input$w2/100, input$w3/100, input$w4/100, input$w5/100)
+validate(need(input$w1 + input$w2+ input$w3 + input$w4+input$w5 == 100,
+            &quot;Portfolio weights must sum to 100%!&quot;))
+
+
+myStocks &lt;- symbols %&gt;% 
+  tq_get(get  = &quot;stock.prices&quot;,
+         from = input$date,
+         to   = Sys.Date()) %&gt;%
+  group_by(symbol) 
+
+# get prices for SPY, the SP500 ETF
+spy &lt;- tq_get(&quot;SPY&quot;, get  = &quot;stock.prices&quot;,
+              from = input$date,
+              to   =  Sys.Date()) 
+
+#calculate monthly  returns for the chosen stocks
+myStocks_returns_monthly &lt;- myStocks %&gt;% 
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;monthly&quot;, 
+               type       = &quot;arithmetic&quot;,
+               col_rename = &quot;monthly_return&quot;,
+               cols = c(nested.col)) 
+
+
+#calculate SPY monthly  returns
+spy_returns_monthly &lt;- spy %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;monthly&quot;, 
+               type       = &quot;arithmetic&quot;,
+               col_rename = &quot;SPY_return&quot;,
+               cols = c(nested.col))
+
+#calculate portfolio monthly  returns - weights * returns
+portfolio_returns_tq_rebalanced_monthly &lt;-  tq_portfolio(data = myStocks_returns_monthly,
+             assets_col = symbol,
+             returns_col = monthly_return,
+             weights = weights,
+             col_rename = &quot;monthly_return&quot;,
+             wealth.index = FALSE)
+  
+myportfolio_data &lt;- left_join(portfolio_returns_tq_rebalanced_monthly, 
+                              spy_returns_monthly, 
+                              by=&quot;date&quot;) %&gt;% 
+                              na.omit() %&gt;% 
+                    mutate(
+                      # cumsum() and cumprod() calcuale the running sum/product
+                      # here we use cumprod, as we calcualte return using type=arithmetic
+                      # if we had calculated return using log, we would need cumsum
+                        portfolio_growth =  100 * cumprod(1 + monthly_return),
+                        sp500_growth =  100 * cumprod(1 + SPY_return)
+                    )
+})
+
+portfolio_model_augmented &lt;- eventReactive(input$go, {
+  
+  myportfolio_data &lt;- myportfolio_data()
+  
+  
+  portfolio_model_augmented &lt;- 
+    myportfolio_data %&gt;% 
+    lm(monthly_return ~ SPY_return, data = .) %&gt;% 
+    augment() %&gt;% 
+    mutate(date = myportfolio_data$date)
+  
+})</code></pre>
+</div>
+<div id="section-choose-5-stocks-and-a-starting-date" class="section level1">
+<h1>Choose 5 stocks and a starting date</h1>
+<div id="section-row" class="section level2" data-height="320">
+<h2>Row</h2>
+<div id="section-growth-of-100-invested-in-portfolio-blue-vs.-sp500-red" class="section level3">
+<h3>Growth of $100 invested in portfolio (blue) vs. SP500 (red)</h3>
+<pre class="r"><code>#use plotly to create interactive chart, so when we place our cursor on ti, we can see values
+
+renderPlotly({
+  
+  fubar1 &lt;- myportfolio_data() %&gt;% 
+    ggplot(aes(x=date))+
+    geom_line(aes(y=portfolio_growth),
+              colour=&quot;#001e62&quot;)+
+    geom_line(aes(y=sp500_growth),
+              colour=&quot;tomato&quot;)+
+    scale_y_continuous(labels = scales::dollar)+
+    theme_minimal()+
+    labs(x=&quot;&quot;, y=&quot;&quot;)  
+    
+  ggplotly(fubar1)
+})</code></pre>
+<p><div id="out20be77d30c0ca7a7" style="width:100%; height:400px; " class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme"></div></p>
+</div>
+</div>
+<div id="section-row-2" class="section level2" data-height="320">
+<h2>Row 2</h2>
+<div id="section-capm-portfolio-returns-vs-market-index-sp500-returns" class="section level3">
+<h3>CAPM: Portfolio Returns vs Market Index (SP500) returns</h3>
+<pre class="r"><code>#use highchart to get interactive scatter plot
+
+renderHighchart({
+
+myportfolio_data &lt;- myportfolio_data()
+portfolio_model_augmented &lt;- portfolio_model_augmented()
+
+highchart() %&gt;% 
+  hc_title(text = &quot;Portfolio Returns vs SP500 returns with Regression Line&quot;) %&gt;% 
+  hc_add_series(portfolio_model_augmented, 
+                type = &quot;scatter&quot;,
+                color = &quot;cornflowerblue&quot;,
+                hcaes(x = round(SPY_return, 4), 
+                      y = round(monthly_return, 4),
+                      date = date), 
+                name = &quot;Returns&quot;) %&gt;%
+  hc_add_series(portfolio_model_augmented, 
+                 type = &quot;line&quot;, 
+                 enableMouseTracking = FALSE,
+                 hcaes(x = SPY_return, y = .fitted), 
+                 name = &quot;CAPM Beta = Slope of Line&quot;) %&gt;% 
+  hc_xAxis(title = list(text = &quot;Market Returns&quot;)) %&gt;% 
+  hc_yAxis(title = list(text = &quot;Portfolio Returns&quot;)) %&gt;% 
+  hc_tooltip(formatter = JS(&quot;function(){
+     return (&#39;portfolio: &#39; + this.y + &#39;  SP500: &#39; + this.x +  
+     &#39;  date: &#39; + this.point.date)}&quot;))%&gt;% 
+  hc_add_theme(hc_theme_flat())
+
+})</code></pre>
+<p><div id="outd13040c3771d9ee7" style="width:100%; height:400px; " class="highchart html-widget html-widget-output"></div></p>
+</div>
+</div>
+<div id="section-row-3" class="section level2" data-height="100">
+<h2>Row 3</h2>
+<div id="section-capm-model-results-fitted-through-entire-time-interval" class="section level3">
+<h3>CAPM Model Results, fitted through entire time interval</h3>
+<pre class="r"><code>renderTable({
+
+  myportfolio_data &lt;- myportfolio_data()
+  
+    myportfolio_data %&gt;% 
+    lm(monthly_return ~ SPY_return, data = .) %&gt;% 
+    tidy(conf.int=TRUE) %&gt;% 
+  mutate(term = c(&quot;alpha&quot;, &quot;beta&quot;))
+}, digits = 4)</code></pre>
+<p><div id="out12ccd7c8e8bf6d16" class="shiny-html-output"></div></p>
+</div>
+</div>
+</div>
